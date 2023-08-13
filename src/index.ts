@@ -71,6 +71,7 @@ function completeTask(e: MouseEvent) {
     targetTask.completed = true;
     target.style.textDecoration="line-through"
     target.style.opacity="0.4"
+     localStorage.setItem('todo-tasks',JSON.stringify(lsTasks));
   }else if(targetTask!=undefined && targetTask.completed===true){
     //here target task will already be completed, so we have to delete it
     lsTasks.splice(lsTasks.indexOf(targetTask),1)
@@ -87,6 +88,11 @@ function displayTasks(tasks:TaskType[]){
   if(tasklist){tasklist.innerHTML = ""}
   tasks.map((task)=>{
   const newtask = document.createElement('li');
+  if(task.completed===true){
+    console.log("completed taskname",task)
+    newtask.style.textDecoration="line-through"
+    newtask.style.opacity="0.4"
+  }
   newtask.innerText = task.name;
     newtask.setAttribute("data-id",`${task.id}`)
   newtask.addEventListener('click',completeTask)
